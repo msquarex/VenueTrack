@@ -4,7 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from './firebase';
 import Navbar from './components/Navbar';
-import truckCursor from './assets/truck-cursor.svg';
+
 import './App.css';
 
 import Home from './pages/Home';
