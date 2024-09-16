@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useViewportScroll, useTransform } from 'framer-motion';
 import { FaArrowRight, FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaCalendarAlt, FaSearch, FaUsers, FaClock } from 'react-icons/fa';
 import styled from '@emotion/styled';
 import './Home.css';
@@ -68,6 +68,9 @@ const Home = () => {
     }
   ];
 
+  const { scrollYProgress } = useViewportScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+
   return (
     <div className="home">
       <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
@@ -98,45 +101,46 @@ const Home = () => {
           transition={{ duration: 1 }}
           style={{ position: 'relative', zIndex: 1 }}
         >
-          <h1>VenueTrack</h1>
-          <p>Make your event booking more organized and hassle-free with VenueTrack</p>
+          <h1 className="glitch" data-text="VenueTrack">VenueTrack</h1>
+          <p className="typewriter">Make your event booking more organized and hassle-free</p>
           <motion.button
             onClick={handleStartTracking}
             className="cta-button"
-            whileHover={{ scale: 1.03 }} 
-            whileTap={{ scale: 0.98 }} 
+            whileHover={{ scale: 1.05, boxShadow: "0px 0px 8px rgb(255,255,255)" }}
+            whileTap={{ scale: 0.95 }}
           >
             Start Booking <FaArrowRight style={{ marginLeft: '10px' }} />
           </motion.button>
         </motion.div>
       </section>
 
-      <section className="features">
-        <h2>Our Features</h2>
+      <motion.section className="features" style={{ scale }}>
+        <h2 className="section-title">Our Features</h2>
         <div className="feature-grid">
           {features.map((feature, index) => (
             <motion.div
               key={index}
               className="feature-item"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: index * 0.2 }}
             >
-              <IconWrapper>{feature.icon}</IconWrapper>
+              <IconWrapper className="feature-icon">{feature.icon}</IconWrapper>
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="cta">
-        <h2>Ready to Optimize Your Bookings?</h2>
+      <section className="cta parallax-section">
+        <h2 className="glow-text">Ready to Optimize Your Bookings?</h2>
         <p>Make your event booking more organized and hassle-free with VenueTrack</p>
         <motion.button
           onClick={handleStartTracking}
-          className="cta-button"
-          whileHover={{ scale: 1.03 }}
+          className="cta-button neon-button"
+          whileHover={{ scale: 1.05, boxShadow: "0px 0px 15px rgb(255,255,255)" }}
           whileTap={{ scale: 0.95 }}
         >
           Get Started Now <FaArrowRight style={{ marginLeft: '10px' }} />

@@ -29,13 +29,12 @@
   position: relative;
   text-align: center;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.3); /* Changed to a more translucent background */
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
   padding: 3rem;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px); 
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  width: 50%;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .hero-content h1 {
@@ -56,7 +55,7 @@
 .cta-button {
   padding: 15px 30px;
   font-size: 1.2rem;
-  background-color: #fe424d;
+  background-color: #cc1800;
   color: #ffffff;
   border: none;
   border-radius: 50px;
@@ -95,16 +94,18 @@
 }
 
 .feature-item {
-  background-color: #ffffff;
-  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   transition: all 0.3s ease;
 }
 
 .feature-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(254, 66, 77, 0.2);
 }
 
 .feature-item h3 {
@@ -120,7 +121,7 @@
 }
 
 .cta {
-  background-color: #fe424d;
+  background: linear-gradient(45deg, #fe424d, #ff7b54);
   padding: 6rem 2rem;
   text-align: center;
   color: #ffffff;
@@ -141,26 +142,23 @@
 }
 
 .cta .cta-button {
-  font-size: 1.1rem; 
-  padding: 12px 30px; 
-  background-color: #ffffff;
-  color: #fe424d;
-  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   border-radius: 50px;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-  max-width: 400px; /* Add this line to limit the width */
-  width: 100%; /* Add this line to make it responsive */
+  max-width: 400px;
+  width: 100%;
 }
 
 .cta .cta-button:hover {
-  background-color: #f0f0f0;
+  background: rgba(255, 255, 255, 0.3);
   box-shadow: 0 7px 20px rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px); 
 }
 
 .cta .cta-button svg {
@@ -307,4 +305,347 @@
     max-width: 180px; /* Slightly smaller on mobile devices */
     font-size: 1rem; /* Slightly smaller font on mobile devices */
   }
+}
+
+/* Add a cool scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fe424d;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff7b54;
+}
+
+/* Add some custom animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.feature-item {
+  animation: float 6s ease-in-out infinite;
+}
+
+.feature-item:nth-child(2) { animation-delay: 1s; }
+.feature-item:nth-child(3) { animation-delay: 2s; }
+.feature-item:nth-child(4) { animation-delay: 3s; }
+
+/* Add a glowing effect to the CTA button */
+@keyframes glow {
+  0% { box-shadow: 0 0 5px #fe424d; }
+  50% { box-shadow: 0 0 20px #fe424d, 0 0 30px #ff7b54; }
+  100% { box-shadow: 0 0 5px #fe424d; }
+}
+
+.cta .cta-button {
+  animation: glow 2s infinite;
+}
+
+/* Add a subtle background animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .scroller {
+    font-size: 36px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ... existing styles ... */
+
+/* Glitch effect for the main title */
+.glitch {
+  position: relative;
+  font-size: 5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 0.05em 0 0 rgba(255,0,0,0.75),
+              -0.025em -0.05em 0 rgba(0,255,0,0.75),
+              0.025em 0.05em 0 rgba(0,0,255,0.75);
+  animation: glitch 500ms infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+  animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 rgba(255,0,0,0.75),
+                -0.05em -0.025em 0 rgba(0,255,0,0.75),
+                -0.025em 0.05em 0 rgba(0,0,255,0.75);
+  }
+  14% {
+    text-shadow: 0.05em 0 0 rgba(255,0,0,0.75),
+                -0.05em -0.025em 0 rgba(0,255,0,0.75),
+                -0.025em 0.05em 0 rgba(0,0,255,0.75);
+  }
+  15% {
+    text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75),
+                0.025em 0.025em 0 rgba(0,255,0,0.75),
+                -0.05em -0.05em 0 rgba(0,0,255,0.75);
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75),
+                0.025em 0.025em 0 rgba(0,255,0,0.75),
+                -0.05em -0.05em 0 rgba(0,0,255,0.75);
+  }
+  50% {
+    text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75),
+                0.05em 0 0 rgba(0,255,0,0.75),
+                0 -0.05em 0 rgba(0,0,255,0.75);
+  }
+  99% {
+    text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75),
+                0.05em 0 0 rgba(0,255,0,0.75),
+                0 -0.05em 0 rgba(0,0,255,0.75);
+  }
+  100% {
+    text-shadow: -0.025em 0 0 rgba(255,0,0,0.75),
+                -0.025em -0.025em 0 rgba(0,255,0,0.75),
+                -0.025em -0.05em 0 rgba(0,0,255,0.75);
+  }
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(44px, 9999px, 56px, 0);
+  }
+  100% {
+    clip: rect(24px, 9999px, 76px, 0);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(24px, 9999px, 76px, 0);
+  }
+  100% {
+    clip: rect(44px, 9999px, 56px, 0);
+  }
+}
+
+/* Typewriter effect for the subtitle */
+.typewriter {
+  overflow: hidden;
+  border-right: .15em solid #fe424d;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #fe424d; }
+}
+
+/* Neon button effect */
+.neon-button {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #fe424d;
+  font-size: 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.neon-button:hover {
+  background: #fe424d;
+  color: #fff;
+  box-shadow: 0 0 5px #fe424d,
+              0 0 25px #fe424d,
+              0 0 50px #fe424d,
+              0 0 200px #fe424d;
+}
+
+.neon-button span {
+  position: absolute;
+  display: block;
+}
+
+.neon-button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fe424d);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+/* Parallax effect */
+.parallax-section {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Glow text effect */
+.glow-text {
+  font-size: 3rem;
+  color: #fff;
+  text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fe424d, 0 0 20px #fe424d, 0 0 35px #fe424d, 0 0 40px #fe424d, 0 0 50px #fe424d;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fe424d, 0 0 40px #fe424d, 0 0 50px #fe424d, 0 0 60px #fe424d, 0 0 70px #fe424d;
+  }
+}
+
+/* Floating animation for feature icons */
+.feature-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-20px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .glitch {
+    font-size: 3rem;
+  }
+
+  .typewriter {
+    font-size: 1rem;
+  }
+
+  .glow-text {
+    font-size: 2rem;
+  }
+}
+
+/* Add a cool scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fe424d;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff7b54;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Add more contrast to the footer */
+.footer {
+  background-color: #0a0001;
+}
+
+.footer-section h3 {
+  color: #ff7b54;
+}
+
+.social-icons a:hover {
+  color: #fe424d;
+}
+
+/* Add a subtle gradient background to the body */
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Improve readability of the feature items */
+.feature-item {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.feature-item:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(254, 66, 77, 0.3);
 }

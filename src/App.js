@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
-
+import BookingHistory from './pages/BookingHistory';
 import Contact from './pages/Contact';
 
 
@@ -45,6 +45,7 @@ const App = () => {
           <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
          
           <Route path="/contact" element={<Contact />} />
+          <Route path="/booking-history" element={<BookingHistory />} />
           
         
         </Routes>

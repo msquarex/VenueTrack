@@ -31,12 +31,8 @@ const Navbar = ({ isAuthenticated }) => {
         {isAuthenticated ? (
           <>
             <motion.li whileHover={{ scale: 1.1 }}><Link to="/dashboard">Dashboard</Link></motion.li>
-            <motion.li whileHover={{ scale: 1.1 }}><Link to="/tracking">Tracking</Link></motion.li>
-            <motion.li whileHover={{ scale: 1.1 }}><Link to="/driver-info">Driver Info</Link></motion.li>
-            <motion.li whileHover={{ scale: 1.1 }}><Link to="/trip-scheduling">Trip Scheduling</Link></motion.li>
-            <motion.li whileHover={{ scale: 1.1 }}><Link to="/fuel-consumption">Fuel Consumption</Link></motion.li>
-            <motion.li whileHover={{ scale: 1.1 }}><Link to="/maintenance">Maintenance</Link></motion.li>
-            <motion.li whileHover={{ scale: 1.1 }}><Link to="/alerts">Alerts</Link></motion.li>
+            <motion.li whileHover={{ scale: 1.1 }}><Link to="/booking-history">Booking History</Link></motion.li>
+           
             <motion.li whileHover={{ scale: 1.1 }}>
               <button className="logout" onClick={handleLogout}>Logout</button>
             </motion.li>
