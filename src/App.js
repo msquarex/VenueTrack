@@ -11,15 +11,10 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
-import AddTruck from './pages/AddTruck';
-import Tracking from './pages/Tracking';
-import DriverInfo from './pages/DriverDetails';
+
 import Contact from './pages/Contact';
 
-import FuelConsumption from './pages/FuelConsumption';
-import TripScheduling from './pages/TripScheduling';
-import Maintenance from './pages/Maintenance';
-import Alerts from './pages/Alerts';
+
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,15 +43,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
-          <Route path="/add-truck" element={<AddTruck />} />
-          <Route path="/tracking" element={<Tracking />} />
-          <Route path="/driver-info" element={<DriverInfo />} />
+         
           <Route path="/contact" element={<Contact />} />
           
-          <Route path="/fuel-consumption" element={<FuelConsumption />} />
-          <Route path="/trip-scheduling" element={<TripScheduling />} />
-          <Route path="/maintenance" element={<Maintenance />} />
-          <Route path="/alerts" element={<Alerts />} />
+        
         </Routes>
       </AnimatePresence>
     </>

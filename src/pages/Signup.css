@@ -81,7 +81,7 @@ input {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #0072ff;
+    background-color: #fe424d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -91,7 +91,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056cc;
+    background-color: #fe0f1d;
 }
 
 .error {
