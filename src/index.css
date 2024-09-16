@@ -1,0 +1,18 @@
+:root {
+  --primary-color: #0072ff;
+  --secondary-color: #00c6ff;
+  --text-color: #333;
+  --background-color: #f7f7f7;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

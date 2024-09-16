@@ -1,0 +1,43 @@
+/* src/pages/Dashboard.css */
+.dashboard-container {
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.add-truck-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #0072ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.add-truck-button a {
+  color: white;
+  text-decoration: none;
+}
+
+.add-truck-button:hover {
+  background-color: #0056cc;
+}
+
+.trucks-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.trucks-table th, .trucks-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.trucks-table th {
+  background-color: #f4f4f4;
+}
