@@ -10,6 +10,10 @@ import audi3 from '../assets/audi3.jpg';
 import audi4 from '../assets/audi4.jpg';
 import audi5 from '../assets/audi5.jpg';
 import audi6 from '../assets/audi6.jpg';
+import audi7 from '../assets/audi7.jpg';
+import audi8 from '../assets/audi8.jpg';
+import audi9 from '../assets/audi9.jpg';
+
 
 const IconWrapper = styled.div`
   font-size: 3rem;
@@ -31,7 +35,7 @@ const BackgroundImage = styled(motion.div)`
 const Home = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = [audi1, audi2, audi3, audi4, audi5, audi6];
+  const images = [audi1, audi2, audi3, audi4, audi5, audi6, audi7, audi8, audi9];
 
   useEffect(() => {
     const interval = setInterval(() => {

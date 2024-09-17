@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.admin-dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.admin-dashboard h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.admin-dashboard h1::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #3498db;
+  margin: 10px auto;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background-color: #ecf0f1;
+  border: none;
+  color: #34495e;
+  padding: 10px 20px;
+  margin: 0 5px 10px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background-color: #fe424d;
+  color: white;
+}
+
+.booking-requests {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.booking-request {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  transition: all 0.3s ease;
+}
+
+.booking-request:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.booking-request h3 {
+  color: #2980b9;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.booking-request p {
+  color: #7f8c8d;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.booking-request .status {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.booking-request .icon {
+  margin-right: 5px;
+  font-size: 1.2rem;
+}
+
+.booking-request .approved {
+  color: #2ecc71;
+}
+
+.booking-request .declined {
+  color: #e74c3c;
+}
+
+.booking-request .pending {
+  color: #f39c12;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.action-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.approve-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #27ae60;
+}
+
+.decline-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.decline-btn:hover {
+  background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard h1 {
+    font-size: 2rem;
+  }
+
+  .booking-requests {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.booking-request.pending {
+  animation: pulse 2s infinite;
+}

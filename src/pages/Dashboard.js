@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faCheckCircle, faTimesCircle, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
+import { auth } from '../firebase';
+import { bookVenue } from '../db';
 
 import kasturbaHallImage from '../assets/kasturba-hall.jpg';
 import mgAuditoriumImage from '../assets/MG-Auditorium.jpg';
@@ -13,28 +18,54 @@ import ab1Image from '../assets/ab-1 portigo.jpeg';
 import MBamphoImage from '../assets/mb-amphi.jpeg';
 // Import other images similarly
 
-const listings = [
-  { id: 1, name: 'Kasturba Auditorium', capacity: 2, available: true, image: kasturbaHallImage },
-  { id: 2, name: 'MG Auditorium', capacity: 6, available: true, image: mgAuditoriumImage },
-  { id: 3, name: 'Netaji Auditorium', capacity: 6, available: true, image: netajiImage },
-  { id: 4, name: 'AB-3 Hall', capacity: 6, available: true, image: AB3Image },
-  { id: 5, name: 'Main ground', capacity: 6, available: true, image: maingroundImage },
-  { id: 6, name: 'AB-1 Portigo', capacity: 6, available: true, image: ab1Image },
-  { id: 7, name: 'MB Amphi', capacity: 6, available: true, image: MBamphoImage },
-  // Use other imported images for the rest of the listings
-];
-
 function Dashboard() {
+  const [listings, setListings] = useState([]);
   const [selectedListing, setSelectedListing] = useState(null);
   const [bookingDate, setBookingDate] = useState('');
   const [bookingTime, setBookingTime] = useState('');
   const [bookingReason, setBookingReason] = useState('');
   const [otherReason, setOtherReason] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [capacityFilter, setCapacityFilter] = useState('');
+  const [locationFilter, setLocationFilter] = useState('');
+  const [availabilityFilter, setAvailabilityFilter] = useState('');
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
+
+  const fetchVenues = async () => {
+    try {
+      const venuesCollection = collection(db, 'venues');
+      const venueSnapshot = await getDocs(venuesCollection);
+      const venueList = venueSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        image: getVenueImage(doc.data().name),
+        status: doc.data().status === 'booked' ? 'booked' : 'available'
+      }));
+      setListings(venueList);
+    } catch (error) {
+      console.error("Error fetching venues:", error);
+    }
+  };
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1500); // Simulating loading time
+    fetchVenues();
   }, []);
+
+  // Helper function to get the correct image based on venue name
+  const getVenueImage = (venueName) => {
+    switch(venueName) {
+      case 'Kasturba Auditorium': return kasturbaHallImage;
+      case 'MG Auditorium': return mgAuditoriumImage;
+      case 'Netaji Auditorium': return netajiImage;
+      case 'AB-3 Hall': return AB3Image;
+      case 'Main ground': return maingroundImage;
+      case 'AB-1 Portico': return ab1Image;
+      case 'MB Amphitheatre': return MBamphoImage;
+      default: return null;
+    }
+  };
 
   const openPopup = (listing) => {
     setSelectedListing(listing);
@@ -44,31 +75,42 @@ function Dashboard() {
     setSelectedListing(null);
   };
 
-  const handleBooking = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
+    console.log('Booking attempt started');
+
     const reason = bookingReason === 'Other' ? otherReason : bookingReason;
-    console.log('Booking submitted:', { 
-      listing: selectedListing, 
-      date: bookingDate, 
-      time: bookingTime,
-      reason: reason
-    });
+    const bookingData = {
+      startDate: new Date(bookingDate + 'T' + bookingTime),
+      status: 'booked',
+      reason: reason,
+      venueId: selectedListing.id,
+      venueName: selectedListing.name,
+    };
+
+    // Show success popup
+    setShowSuccessPopup(true);
+
     // Reset form and close popup
     setBookingDate('');
     setBookingTime('');
     setBookingReason('');
     setOtherReason('');
     closePopup();
+
+    // Redirect to booking history page after 2 seconds
+    setTimeout(() => {
+      navigate('/booking-history', { state: { newBooking: bookingData } });
+    }, 2000);
   };
 
-  if (isLoading) {
+  const filteredListings = listings.filter(listing => {
     return (
-      <div className="loading-screen">
-        <div className="spinner"></div>
-        <p>Loading amazing venues...</p>
-      </div>
+      (capacityFilter === '' || listing.capacity >= parseInt(capacityFilter)) &&
+      (locationFilter === '' || listing.location === locationFilter) &&
+      (availabilityFilter === '' || listing.status === availabilityFilter)
     );
-  }
+  });
 
   return (
     <motion.div 
@@ -78,13 +120,46 @@ function Dashboard() {
       transition={{ duration: 0.5 }}
     >
       <h1 className="title">Explore Stunning Venues</h1>
+
+      <div className="filter-section">
+        <h2><FontAwesomeIcon icon={faFilter} /> Filter Venues</h2>
+        <div className="filter-controls">
+          <select
+            value={capacityFilter}
+            onChange={(e) => setCapacityFilter(e.target.value)}
+          >
+            <option value="">All Capacities</option>
+            <option value="100">100+ guests</option>
+            <option value="200">200+ guests</option>
+            <option value="500">500+ guests</option>
+          </select>
+          <select
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+          >
+            <option value="">All Locations</option>
+            <option value="Main Campus">Main Campus</option>
+            <option value="North Campus">North Campus</option>
+            <option value="South Campus">South Campus</option>
+          </select>
+          <select
+            value={availabilityFilter}
+            onChange={(e) => setAvailabilityFilter(e.target.value)}
+          >
+            <option value="">All Availabilities</option>
+            <option value="true">Available</option>
+            <option value="false">Booked</option>
+          </select>
+        </div>
+      </div>
+
       <motion.div 
         className="listings-grid"
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        {listings.map((listing) => (
+        {filteredListings.map((listing) => (
           <motion.div 
             key={listing.id} 
             className="listing-card" 
@@ -99,7 +174,7 @@ function Dashboard() {
               <h2>{listing.name}</h2>
               <p><FontAwesomeIcon icon={faUsers} /> Capacity: {listing.capacity} guests</p>
               <p>
-                Status: {listing.available ? 
+                Status: {listing.status === 'available' ? 
                   <span className="available"><FontAwesomeIcon icon={faCheckCircle} /> Available</span> : 
                   <span className="booked"><FontAwesomeIcon icon={faTimesCircle} /> Booked</span>
                 }
@@ -131,7 +206,7 @@ function Dashboard() {
               <h2>{selectedListing.name}</h2>
               <p><FontAwesomeIcon icon={faUsers} /> Capacity: {selectedListing.capacity} guests</p>
               <p>
-                Status: {selectedListing.available ? 
+                Status: {selectedListing.status === 'available' ? 
                   <span className="available"><FontAwesomeIcon icon={faCheckCircle} /> Available</span> : 
                   <span className="booked"><FontAwesomeIcon icon={faTimesCircle} /> Booked</span>
                 }
@@ -200,6 +275,17 @@ function Dashboard() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {showSuccessPopup && (
+        <div className="popup-overlay">
+          <div className="success-popup">
+            <h3>Booking Successful!</h3>
+            <p>Your venue has been booked. Redirecting to booking history...</p>
+          </div>
+        </div>
+      )}
+
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
     </motion.div>
   );
 }

@@ -1,17 +1,24 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCfJYbeipACZzekVzt-MsX0ypBUoWTCsqw",
-    authDomain: "teletrack-fc322.firebaseapp.com",
-    projectId: "teletrack-fc322",
-    storageBucket: "teletrack-fc322.appspot.com",
-    messagingSenderId: "434656208355",
-    appId: "1:434656208355:web:04a09d8a3fa65b26762cd6",
-    measurementId: "G-SDJ299PL6F"
-  };
-
+  apiKey: "AIzaSyD-UeZmBYicDETkLE7sD_386cdIrqK8kGo",
+  authDomain: "venuetrack-8b104.firebaseapp.com",
+  projectId: "venuetrack-8b104",
+  storageBucket: "venuetrack-8b104.appspot.com",
+  messagingSenderId: "153064058350",
+  appId: "1:153064058350:web:0b4afa92ca01b6d60272ff",
+  measurementId: "G-Q1Q84XHP9E"
+};
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
-export { auth };
+// Create a custom auth object
+const customAuth = {
+  currentUser: null,
+};
+
+export { customAuth };

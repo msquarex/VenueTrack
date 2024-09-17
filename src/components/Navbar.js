@@ -1,20 +1,22 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { signOut } from "firebase/auth";
+
 import { auth } from '../firebase';
 import './Navbar.css';
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({ isAuthenticated, onAuthStateChange }) => {
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate('/');
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
+  const handleLogout = () => {
+    // Clear the current user from the custom auth object
+    auth.currentUser = null;
+    
+    // Update the authentication state
+    onAuthStateChange(false);
+    
+    // Navigate to the home page
+    navigate('/');
   };
 
   return (
@@ -30,15 +32,18 @@ const Navbar = ({ isAuthenticated }) => {
       <ul className="NavLinks">
         {isAuthenticated ? (
           <>
+            <motion.li whileHover={{ scale: 1.1 }}><Link to="/">Home</Link></motion.li>
             <motion.li whileHover={{ scale: 1.1 }}><Link to="/dashboard">Dashboard</Link></motion.li>
             <motion.li whileHover={{ scale: 1.1 }}><Link to="/booking-history">Booking History</Link></motion.li>
            
+            
             <motion.li whileHover={{ scale: 1.1 }}>
               <button className="logout" onClick={handleLogout}>Logout</button>
             </motion.li>
           </>
         ) : (
           <>
+          <motion.li whileHover={{ scale: 1.1 }}><Link to="/">Home</Link></motion.li>
             <motion.li whileHover={{ scale: 1.1 }}><Link to="/login">Login</Link></motion.li>
             <motion.li whileHover={{ scale: 1.1 }}><Link to="/signup">Sign Up</Link></motion.li>
             
