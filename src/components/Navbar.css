@@ -28,6 +28,16 @@
   transform: scale(1.1);
 }
 
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  height: 40px; /* Adjust this value as needed */
+  margin-right: 10px;
+}
+
 .NavLinks {
   list-style: none;
   display: flex;
@@ -85,27 +95,6 @@
 
 @media (max-width: 768px) {
   .Nav {
-    height: auto;
-    flex-direction: column;
-    padding: 10px 20px;
-  }
-
-  .navbar-logo {
-    margin-bottom: 10px;
-  }
-
-  .NavLinks {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .NavLinks li {
-    margin: 10px 0;
-  }
-
-  .NavLinks a, .NavLinks button {
-    width: 100%;
-    justify-content: center;
+    display: none;
   }
 }

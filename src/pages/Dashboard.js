@@ -26,8 +26,9 @@ function Dashboard() {
   const [bookingReason, setBookingReason] = useState('');
   const [otherReason, setOtherReason] = useState('');
   const [capacityFilter, setCapacityFilter] = useState('');
-  const [locationFilter, setLocationFilter] = useState('');
-  const [availabilityFilter, setAvailabilityFilter] = useState('');
+  // Remove these lines:
+  // const [locationFilter, setLocationFilter] = useState('');
+  // const [availabilityFilter, setAvailabilityFilter] = useState('');
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -106,9 +107,10 @@ function Dashboard() {
 
   const filteredListings = listings.filter(listing => {
     return (
-      (capacityFilter === '' || listing.capacity >= parseInt(capacityFilter)) &&
-      (locationFilter === '' || listing.location === locationFilter) &&
-      (availabilityFilter === '' || listing.status === availabilityFilter)
+      capacityFilter === '' || listing.capacity >= parseInt(capacityFilter)
+      // Remove these lines:
+      // (locationFilter === '' || listing.location === locationFilter) &&
+      // (availabilityFilter === '' || listing.status === availabilityFilter)
     );
   });
 
@@ -133,6 +135,7 @@ function Dashboard() {
             <option value="200">200+ guests</option>
             <option value="500">500+ guests</option>
           </select>
+          {/* Remove these select elements:
           <select
             value={locationFilter}
             onChange={(e) => setLocationFilter(e.target.value)}
@@ -150,6 +153,7 @@ function Dashboard() {
             <option value="true">Available</option>
             <option value="false">Booked</option>
           </select>
+          */}
         </div>
       </div>
 

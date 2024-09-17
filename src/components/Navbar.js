@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 
 import { auth } from '../firebase';
 import './Navbar.css';
+import logo from '../assets/logo.png'; // Add this import
 
 const Navbar = ({ isAuthenticated, onAuthStateChange }) => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Navbar = ({ isAuthenticated, onAuthStateChange }) => {
       transition={{ duration: 0.5 }}
     >
       <div className="navbar-logo">
+        <img src={logo} alt="VenueTrack Logo" className="logo-image" />
         <Link to={isAuthenticated ? "/dashboard" : "/"}>VenueTrack</Link>
       </div>
       <ul className="NavLinks">

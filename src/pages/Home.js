@@ -167,7 +167,8 @@ const Home = () => {
             <h3>Quick Links</h3>
             <ul>
               
-              <li><Link to="/features">Features</Link></li>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/signup">Signup</Link></li>
               
               <li><Link to="/contact">Contact</Link></li>
             </ul>
